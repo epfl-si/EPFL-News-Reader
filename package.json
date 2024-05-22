@@ -12,6 +12,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "epfl-elements": "^4.8.0",
+    "epfl-elements-react": "https://github.com/epfl-si/epfl-elements-react/releases/latest/download/epfl-elements-react.tgz",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.1"
