@@ -1,1 +1,1 @@
-# EPFL-News-Reader
+# EPFL News Reader
