@@ -1,0 +1,10 @@
+.Box {
+    display: flex;
+    flex-direction: row;
+}
+
+.LanguageBox {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}

@@ -1,19 +1,24 @@
 import 'epfl-elements/dist/css/elements.css'
 import 'epfl-elements/dist/css/vendors.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import CustomHeader from './Component/CustomHeader'
 import Home from './Pages/Home'
 import NotFound from './Pages/NotFound'
 
 function App() {
-  console.log('0.0.2')
+  console.log('0.0.4')
   return (
-    <Router basename={import.meta.env.DEV ? '/' : '/EPFL-News-Reader/'}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
-
+    <div>
+      <Router basename={import.meta.env.DEV ? '/' : '/EPFL-News-Reader/'}>
+        <CustomHeader/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/EN" element={<Home />} />
+          <Route path="/FR" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
+    </div>
   )
 }
 

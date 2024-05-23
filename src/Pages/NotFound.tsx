@@ -1,7 +1,13 @@
+import { Error } from 'epfl-elements-react'
 
 const NotFound = () => {
   return (
-    <h1>404</h1>
+    <Error
+      error={{
+        message: 'Oops the page can not be found',
+        status: 404
+      }}
+    />
   )
 }
 
