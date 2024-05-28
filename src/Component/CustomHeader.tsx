@@ -3,7 +3,6 @@ import { Language } from 'epfl-elements-react'
 import './CustomHeader.css'
 import { useLocation } from 'react-router-dom'
 
-
 const CustomHeader = () => {
   const location = useLocation()
   const basePath = import.meta.env.DEV ? '' : '/EPFL-News-Reader'
@@ -12,14 +11,15 @@ const CustomHeader = () => {
   const isFrench = location.pathname.startsWith('/FR')
   const activeLanguage = isFrench ? 'FR' : 'EN'
 
-  // Construct the language link from current path
-  const enLink = `${basePath}/EN`
-  const frLink = `${basePath}/FR`
+  // Get the current path and replace the language part of it
+  const pathSegments = location.pathname.split('/')
+  const facultyId = pathSegments[2] || ''
 
+  const enLink = facultyId ? `${basePath}/EN/${facultyId}` : `${basePath}/EN`
+  const frLink = facultyId ? `${basePath}/FR/${facultyId}` : `${basePath}/FR`
 
   return (
     <div className='Box'>
-
       <div className='HeaderBox'>
         <Header
           drawerContents={{
@@ -36,14 +36,11 @@ const CustomHeader = () => {
           ]}
         />
       </div>
-
       <div className='LanguageBox'>
-        <Language active={activeLanguage} enLink={frLink}  frLink={enLink}/>
+        <Language active={activeLanguage} enLink={frLink} frLink={enLink} />
       </div>
     </div>
   )
 }
-  
-
 
 export default CustomHeader

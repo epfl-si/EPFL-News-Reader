@@ -1,0 +1,18 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3%;
+    text-align: center;
+  }
+  
+  .version-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Adds space between the version and the GitHub link */
+  }
+  
+  .version-container p {
+    margin: 0; /* Ensure no extra margin */
+  }
+  
