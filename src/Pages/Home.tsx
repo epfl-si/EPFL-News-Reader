@@ -1,6 +1,6 @@
 import { ExternalLink } from 'epfl-elements-react'
 import './Home.css'
-import packageJson from '../../package.json' // Adjust the path as needed
+import packageJson from '../../package.json'
 import FacultyDropdown from '../Component/FacultyDropdown'
 
 const Home = () => {
