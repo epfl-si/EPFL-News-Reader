@@ -17,7 +17,7 @@ const FacultyDropdown: React.FC = () => {
     const fetchFaculties = async () => {
       try {
         const response = await axios.get(apiPath + '/faculties/')
-        console.log('API Response:', response.data) // Log the full response
+        console.log('API Response:', response.data) // For some reason known to no other than god himself, it won't load the faculty list correctly in the dropdown without this console log
         if (response.data && response.data.results) {
           setFaculties(response.data.results.map((faculty: Faculty) => ({
             id: faculty.id,
@@ -37,17 +37,25 @@ const FacultyDropdown: React.FC = () => {
   const handleFacultyChange = (option: string) => {
     const selectedFaculty = faculties.find(faculty => faculty.en_label === option)
     const pathSegments = window.location.pathname.split('/')
-    const lang = pathSegments[1] || 'EN' // Default to 'EN' if no language is present
-
+    const basePath = import.meta.env.DEV ? '' : 'EPFL-News-Reader'
+    const langIndex = basePath ? 2 : 1
+    const lang = pathSegments[langIndex] || 'EN' // Default to 'EN' if no language is present
+  
+    console.log('pathSegments:', pathSegments)     // DEBUG
+  
     if (selectedFaculty) {
-      navigate(`/${lang}/${selectedFaculty.id}`)
+      const newLink = (`/${lang}/${selectedFaculty.id}`)
+      console.log('lang : ' + lang)           // DEBUG
+      console.log('newlink : ' + newLink)     // DEBUG
+      navigate(newLink)
     } else if (option === 'None') {
-      navigate('/')
+      navigate(`/${basePath ? basePath + '/' : ''}${lang}`)
     } else if (option === 'All') {
-      navigate(`/${lang}/all`)
+      navigate(`/${basePath ? basePath + '/' : ''}${lang}/all`)
     }
   }
-
+  
+  
   const facultyOptions = faculties.map(faculty => ({ option: faculty.en_label }))
   facultyOptions.unshift({ option: 'None' })
   facultyOptions.push({ option: 'All' })
