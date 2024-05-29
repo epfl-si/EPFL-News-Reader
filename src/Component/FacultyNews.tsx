@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Loader, Card } from 'epfl-elements-react'
 import FacultyDropdown from './FacultyDropdown'
+import DOMPurify from 'dompurify'
 import axios from 'axios'
 import './FacultyNews.css'
 
@@ -56,7 +57,7 @@ const FacultyNews = () => {
             }}
           >
             <h1>{news.title}</h1>
-            <p>{news.subtitle}</p>
+            <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(news.subtitle) }} />
           </Card>
         ))}
       </div>
