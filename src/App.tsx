@@ -6,7 +6,6 @@ import Home from './Pages/Home'
 import NotFound from './Pages/NotFound'
 import FacultyNews from './Component/FacultyNews'
 
-
 function App() {
   return (
     <div>
@@ -17,9 +16,8 @@ function App() {
           <Route path="/EN" element={<Home />} />
           <Route path="/FR" element={<Home />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="/:lang/:facultyId" element={<FacultyNews />} />
+          <Route path="/:lang/:facultyId/:viewType" element={<FacultyNews />} />
         </Routes>
-
       </Router>
     </div>
   )

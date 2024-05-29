@@ -1,27 +1,30 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { Loader, Card } from 'epfl-elements-react'
+import { useParams, useNavigate } from 'react-router-dom'
+import { Loader, Button } from 'epfl-elements-react'
 import FacultyDropdown from './FacultyDropdown'
-import DOMPurify from 'dompurify'
 import axios from 'axios'
+import BlogView from './BlogView'
+import GridView from './GridView'
 import './FacultyNews.css'
 
 interface News {
   title: string
   subtitle: string
   thumbnail_url: string
+  news_url: string
 }
 
 const FacultyNews = () => {
   const apiPath = import.meta.env.DEV ? '/api' : 'https://corsproxy.io/?https://actu.epfl.ch/api/v1'
-  const { lang, facultyId } = useParams()
+  const { lang, facultyId, viewType } = useParams()
   const [newsList, setNewsList] = useState<News[]>([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${apiPath}/channels/${facultyId}/news/?lang=${lang!.toLowerCase()}&limit=5`,
+          `${apiPath}/channels/${facultyId}/news/?lang=${lang!.toLowerCase()}&limit=18`,
           {
             headers: {
               'Access-Control-Allow-Origin': '*',
@@ -39,6 +42,10 @@ const FacultyNews = () => {
     fetchData()
   }, [lang, facultyId, apiPath])
 
+  const handleViewChange = (view: 'blog' | 'grid') => {
+    navigate(`/${lang}/${facultyId}/${view}`)
+  }
+
   if (newsList.length === 0) {
     return <Loader />
   }
@@ -46,21 +53,15 @@ const FacultyNews = () => {
   return (
     <div className="faculty-news-container">
       <FacultyDropdown />
-      <div className="faculty-news-card">
-        {newsList.map((news, index) => (
-          <Card
-            key={index}
-            picture={{
-              alt: 'News thumbnail',
-              src: news.thumbnail_url,
-              title: 'News thumbnail',
-            }}
-          >
-            <h1>{news.title}</h1>
-            <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(news.subtitle) }} />
-          </Card>
-        ))}
+      <div className="view-switcher">
+        <Button label="▢" onClickFn={() => handleViewChange('blog')} />
+        <Button label="▦" onClickFn={() => handleViewChange('grid')} />
       </div>
+      {viewType === 'blog' ? (
+        <BlogView newsList={newsList} />
+      ) : (
+        <GridView newsList={newsList} />
+      )}
     </div>
   )
 }

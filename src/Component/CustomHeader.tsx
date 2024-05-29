@@ -14,9 +14,10 @@ const CustomHeader = () => {
   // Get the current path and replace the language part of it
   const pathSegments = location.pathname.split('/')
   const facultyId = pathSegments[2] || ''
+  const viewType = pathSegments[3] || 'blog'
 
-  const enLink = facultyId ? `${basePath}/EN/${facultyId}` : `${basePath}/EN`
-  const frLink = facultyId ? `${basePath}/FR/${facultyId}` : `${basePath}/FR`
+  const enLink = facultyId ? `${basePath}/EN/${facultyId}/${viewType}` : `${basePath}/EN`
+  const frLink = facultyId ? `${basePath}/FR/${facultyId}/${viewType}` : `${basePath}/FR`
 
   return (
     <div className='Box'>
