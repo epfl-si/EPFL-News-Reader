@@ -26,8 +26,8 @@ const CarouselView: React.FC<CarouselViewProps> = ({ newsList }) => {
     link: news.news_url,
     src: news.thumbnail_url,
     title: news.title,
-    height: 864,
-    width: 1536,
+    height: 691, // 20% smaller than 864
+    width: 1229, // 20% smaller than 1536
     active: index === 0
   }))
 
