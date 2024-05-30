@@ -5,14 +5,10 @@ import FacultyDropdown from './FacultyDropdown'
 import axios from 'axios'
 import BlogView from './BlogView'
 import GridView from './GridView'
+import CarouselView from './CarouselView'
 import './FacultyNews.css'
+import type { News } from './types'
 
-interface News {
-  title: string
-  subtitle: string
-  thumbnail_url: string
-  news_url: string
-}
 
 const FacultyNews = () => {
   const apiPath = import.meta.env.DEV ? '/api' : 'https://corsproxy.io/?https://actu.epfl.ch/api/v1'
@@ -42,7 +38,7 @@ const FacultyNews = () => {
     fetchData()
   }, [lang, facultyId, apiPath])
 
-  const handleViewChange = (view: 'blog' | 'grid') => {
+  const handleViewChange = (view: 'blog' | 'grid' | 'carousel') => {
     navigate(`/${lang}/${facultyId}/${view}`)
   }
 
@@ -56,11 +52,14 @@ const FacultyNews = () => {
       <div className="view-switcher">
         <Button label="▢" onClickFn={() => handleViewChange('blog')} />
         <Button label="▦" onClickFn={() => handleViewChange('grid')} />
+        <Button label="▣" onClickFn={() => handleViewChange('carousel')} />
       </div>
       {viewType === 'blog' ? (
         <BlogView newsList={newsList} />
-      ) : (
+      ) : viewType === 'grid' ? (
         <GridView newsList={newsList} />
+      ) : (
+        <CarouselView newsList={newsList} />
       )}
     </div>
   )

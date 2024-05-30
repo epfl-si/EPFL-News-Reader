@@ -1,13 +1,8 @@
 import React from 'react'
 import { Card } from 'epfl-elements-react'
 import './GridView.css'
+import type { News } from './types'
 
-interface News {
-  title: string
-  subtitle: string
-  thumbnail_url: string
-  news_url: string
-}
 
 interface GridViewProps {
   newsList: News[]
