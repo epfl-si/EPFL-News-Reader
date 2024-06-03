@@ -41,7 +41,7 @@ const FacultyDropdown: React.FC = () => {
   channelOptions.unshift({ option: 'None' })
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem', width: '100%' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem', marginBottom : '1rem', width: '100%' }}>
       <Dropdown
         label="Channel: "
         onChangeFn={handleFacultyChange}

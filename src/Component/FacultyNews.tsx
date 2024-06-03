@@ -9,17 +9,22 @@ import CarouselView from './CarouselView'
 import './FacultyNews.css'
 import type { News } from './types'
 
+const VALID_VIEWS = ['blog', 'grid', 'carousel']
+
 const FacultyNews = () => {
   const apiPath = import.meta.env.DEV ? '/api' : 'https://corsproxy.io/?https://actu.epfl.ch/api/v1'
   const { lang, facultyId, viewType } = useParams()
   const [newsList, setNewsList] = useState<News[]>([])
-  const [loading, setLoading] = useState<boolean>(true)
   const navigate = useNavigate()
 
   useEffect(() => {
+    if (!VALID_VIEWS.includes(viewType!)) {
+      navigate('/404')
+      return
+    }
+
     const fetchData = async () => {
       try {
-        setLoading(true)
         const response = await axios.get(
           `${apiPath}/channels/${facultyId}/news/?lang=${lang!.toLowerCase()}&limit=18`,
           {
@@ -33,19 +38,17 @@ const FacultyNews = () => {
         setNewsList(response.data.results)
       } catch (error) {
         console.error('Error fetching the news data', error)
-      } finally {
-        setLoading(false)
       }
     }
 
     fetchData()
-  }, [lang, facultyId, apiPath])
+  }, [lang, facultyId, viewType, apiPath, navigate])
 
   const handleViewChange = (view: 'blog' | 'grid' | 'carousel') => {
     navigate(`/${lang}/${facultyId}/${view}`)
   }
 
-  if (loading) {
+  if (newsList.length === 0) {
     return <Loader />
   }
 
@@ -62,7 +65,7 @@ const FacultyNews = () => {
       ) : viewType === 'grid' ? (
         <GridView newsList={newsList} />
       ) : (
-        <CarouselView key={`${facultyId}-${viewType}`} newsList={newsList} />
+        <CarouselView newsList={newsList} />
       )}
     </div>
   )

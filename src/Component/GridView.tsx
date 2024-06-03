@@ -3,7 +3,6 @@ import { Card } from 'epfl-elements-react'
 import './GridView.css'
 import type { News } from './types'
 
-
 interface GridViewProps {
   newsList: News[]
 }

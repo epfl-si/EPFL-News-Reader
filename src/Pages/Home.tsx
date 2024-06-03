@@ -1,16 +1,17 @@
-import { ExternalLink } from 'epfl-elements-react'
 import './Home.css'
-import packageJson from '../../package.json'
+import { ExternalLink } from 'epfl-elements-react'
 import FacultyDropdown from '../Component/FacultyDropdown'
 
 const Home = () => {
   return (
     <div className="home-container">
       <h2>EPFL-News-Reader Demo App</h2>
-      <div className="version-container">
-        <p>{packageJson.version}</p>
-        <ExternalLink href="https://github.com/epfl-si/EPFL-News-Reader">
-          <b>GitHub</b>
+      <div className='links'>
+        <ExternalLink href='https://www.npmjs.com/package/epfl-elements-react'>
+          <b>NPM Package               </b>
+        </ExternalLink>
+        <ExternalLink href='https://github.com/epfl-si/epfl-elements-react'>
+          <b>               EPFL-Element-React GitHub</b>
         </ExternalLink>
       </div>
       <FacultyDropdown/>

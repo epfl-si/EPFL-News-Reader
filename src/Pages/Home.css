@@ -5,14 +5,13 @@
     margin-top: 3%;
     text-align: center;
   }
-  
-  .version-container {
-    display: flex;
-    align-items: center;
-    gap: 1rem; /* Adds space between the version and the GitHub link */
-  }
-  
-  .version-container p {
-    margin: 0; /* Ensure no extra margin */
-  }
+ 
+.links {
+  display: flex;
+  gap: 1rem; 
+}
+
+.links a {
+  margin: 0 0.5rem; 
+}
   
