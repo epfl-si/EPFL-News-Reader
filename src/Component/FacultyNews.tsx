@@ -9,31 +9,29 @@ import CarouselView from './CarouselView'
 import './FacultyNews.css'
 import type { News } from './types'
 
+// List of valid URL parameters
+const VALID_LANGUAGES = ['EN', 'FR']
+const VALID_FACULTIES = [1, 4, 5, 6, 7, 8, 9, 10] 
 const VALID_VIEWS = ['blog', 'grid', 'carousel']
 
 const FacultyNews = () => {
-  const apiPath = import.meta.env.DEV ? '/api' : 'https://corsproxy.io/?https://actu.epfl.ch/api/v1'
+  const apiPath = import.meta.env.DEV ? '/api' : 'https://actu.epfl.ch/api/v1' // Determine API path based on environment
   const { lang, facultyId, viewType } = useParams()
-  const [newsList, setNewsList] = useState<News[]>([])
+  const [newsList, setNewsList] = useState<News[]>([])  // State to hold news data
   const navigate = useNavigate()
 
+  // Validate URL parameters
   useEffect(() => {
-    if (!VALID_VIEWS.includes(viewType!)) {
+    if (!VALID_LANGUAGES.includes(lang!) || !VALID_FACULTIES.includes(Number(facultyId)) || !VALID_VIEWS.includes(viewType!)) {
       navigate('/404')
       return
     }
 
+    // Fetch news data from API
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${apiPath}/channels/${facultyId}/news/?lang=${lang!.toLowerCase()}&limit=18`,
-          {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Methods': 'GET',
-              'Content-Type': 'application/json',
-            },
-          }
+          `${apiPath}/channels/${facultyId}/news/?lang=${lang!.toLowerCase()}&limit=18`, // No headers as they create a CORS error
         )
         setNewsList(response.data.results)
       } catch (error) {
@@ -41,13 +39,15 @@ const FacultyNews = () => {
       }
     }
 
-    fetchData()
+    fetchData() // Call fetch data function
   }, [lang, facultyId, viewType, apiPath, navigate])
 
+  // Handle view change
   const handleViewChange = (view: 'blog' | 'grid' | 'carousel') => {
     navigate(`/${lang}/${facultyId}/${view}`)
   }
 
+  // Show loader while data is being fetched
   if (newsList.length === 0) {
     return <Loader />
   }
@@ -56,9 +56,9 @@ const FacultyNews = () => {
     <div className="faculty-news-container">
       <FacultyDropdown />
       <div className="view-switcher">
-        <Button label="▢" onClickFn={() => handleViewChange('blog')} />
-        <Button label="▦" onClickFn={() => handleViewChange('grid')} />
-        <Button label="▣" onClickFn={() => handleViewChange('carousel')} />
+        <Button label="Blog" onClickFn={() => handleViewChange('blog')} />
+        <Button label="Grid" onClickFn={() => handleViewChange('grid')} />
+        <Button label="Carousel" onClickFn={() => handleViewChange('carousel')} />
       </div>
       {viewType === 'blog' ? (
         <BlogView newsList={newsList} />
