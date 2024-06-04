@@ -1,12 +1,11 @@
 import React from 'react'
 import { Card, Collapse } from 'epfl-elements-react'
 import DOMPurify from 'dompurify'
-import './BlogView.css'
+import '../styles/BlogView.css'
 import type { News } from './types'
 import dayjs from 'dayjs'
 
-
-interface BlogViewProps{
+interface BlogViewProps {
   newsList: News[]
 }
 
@@ -22,16 +21,15 @@ const BlogView: React.FC<BlogViewProps> = ({ newsList }) => {
               src: news.thumbnail_url,
               title: 'News thumbnail',
             }}
-            
           >
             <h2>{news.title}</h2>
-            <p  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(news.subtitle) }} />
+            <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(news.subtitle) }} />
             <Collapse
               idCollapse="collapseButton"
               label="More info"
               text={[
-                `Author : ${news.authors.map(author => `${author.first_name} ${author.last_name}`).join(', ')}`,
-                `Published : ${dayjs(news.publish_date).format('DD/MM/YYYY')}`
+                `Author: ${news.authors && news.authors.length > 0 ? news.authors.map(author => `${author.first_name} ${author.last_name}`).join(', ') : 'Unknown'}`,
+                `Published: ${dayjs(news.publish_date).format('DD/MM/YYYY')}`
               ]}
             />
           </Card>

@@ -1,4 +1,4 @@
-import './CustomHeader.css'
+import '../styles/CustomHeader.css'
 import { Header, Language } from 'epfl-elements-react'
 import { useLocation } from 'react-router-dom'
 

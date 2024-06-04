@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card } from 'epfl-elements-react'
-import './GridView.css'
+import '../styles/GridView.css'
 import type { News } from './types'
 
 interface GridViewProps {

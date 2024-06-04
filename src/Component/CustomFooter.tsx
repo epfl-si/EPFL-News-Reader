@@ -1,7 +1,7 @@
 import React from 'react'
 import { FooterLight, ExternalLink } from 'epfl-elements-react'
 import packageJson from '../../package.json'
-import './CustomFooter.css'
+import '../styles/CustomFooter.css'
 
 const CustomFooter: React.FC = () => {
   return (

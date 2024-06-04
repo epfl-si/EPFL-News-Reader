@@ -1,7 +1,7 @@
 import React from 'react'
 import { Carousel } from 'epfl-elements-react'
 import DOMPurify from 'dompurify'
-import './CarouselView.css'
+import '../styles/CarouselView.css'
 import type { News } from './types'
 
 interface CarouselViewProps {

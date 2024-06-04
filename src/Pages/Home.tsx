@@ -1,4 +1,4 @@
-import './Home.css'
+import '../styles/Home.css'
 import { ExternalLink } from 'epfl-elements-react'
 import FacultyDropdown from '../Component/FacultyDropdown'
 

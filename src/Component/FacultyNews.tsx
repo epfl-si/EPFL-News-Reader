@@ -6,7 +6,7 @@ import axios from 'axios'
 import BlogView from './BlogView'
 import GridView from './GridView'
 import CarouselView from './CarouselView'
-import './FacultyNews.css'
+import '../styles/FacultyNews.css'
 import type { News } from './types'
 
 // List of valid URL parameters
