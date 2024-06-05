@@ -1,4 +1,3 @@
-import React from 'react'
 import { Card } from 'epfl-elements-react'
 import '../styles/GridView.css'
 import type { News } from './types'

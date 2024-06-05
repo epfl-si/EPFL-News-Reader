@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Loader, Button } from 'epfl-elements-react'
+import { Loader, Button, Alert } from 'epfl-elements-react'
 import FacultyDropdown from './FacultyDropdown'
 import axios from 'axios'
 import BlogView from './BlogView'
@@ -18,6 +18,7 @@ const FacultyNews = () => {
   const apiPath = import.meta.env.DEV ? '/api' : 'https://actu.epfl.ch/api/v1' // Determine API path based on environment
   const { lang, facultyId, viewType } = useParams()
   const [newsList, setNewsList] = useState<News[]>([])  // State to hold news data
+  const [error, setError] = useState<string | null>(null)  // State to hold error messages
   const navigate = useNavigate()
 
   // Validate URL parameters
@@ -31,11 +32,13 @@ const FacultyNews = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${apiPath}/channels/${facultyId}/news/?lang=${lang!.toLowerCase()}&limit=18`, // No headers as they create a CORS error
+          `${apiPath}/channels/${facultyId}/news/?lang=${lang!.toLowerCase()}&limit=18`
         )
         setNewsList(response.data.results)
+        setError(null)  // Clear any previous errors
       } catch (error) {
         console.error('Error fetching the news data', error)
+        setError('Error fetching the news data')
       }
     }
 
@@ -48,7 +51,7 @@ const FacultyNews = () => {
   }
 
   // Show loader while data is being fetched
-  if (newsList.length === 0) {
+  if (newsList.length === 0 && !error) {
     return <Loader />
   }
 
@@ -60,7 +63,9 @@ const FacultyNews = () => {
         <Button label="Grid" onClickFn={() => handleViewChange('grid')} />
         <Button label="Carousel" onClickFn={() => handleViewChange('carousel')} />
       </div>
-      {viewType === 'blog' ? (
+      {error ? (
+        <Alert alertType="danger" message="can't fetch news" title="Error"/>
+      ) : viewType === 'blog' ? (
         <BlogView newsList={newsList} />
       ) : viewType === 'grid' ? (
         <GridView newsList={newsList} />

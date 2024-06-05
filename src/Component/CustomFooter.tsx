@@ -1,4 +1,3 @@
-import React from 'react'
 import { FooterLight, ExternalLink } from 'epfl-elements-react'
 import packageJson from '../../package.json'
 import '../styles/CustomFooter.css'

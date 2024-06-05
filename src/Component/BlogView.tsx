@@ -1,4 +1,3 @@
-import React from 'react'
 import { Card, Collapse } from 'epfl-elements-react'
 import DOMPurify from 'dompurify'
 import '../styles/BlogView.css'

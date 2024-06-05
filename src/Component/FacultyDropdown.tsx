@@ -1,4 +1,3 @@
-import React from 'react'
 import { Dropdown } from 'epfl-elements-react'
 import { useNavigate, useParams } from 'react-router-dom'
 

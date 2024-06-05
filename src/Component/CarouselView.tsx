@@ -1,4 +1,3 @@
-import React from 'react'
 import { Carousel } from 'epfl-elements-react'
 import DOMPurify from 'dompurify'
 import '../styles/CarouselView.css'
@@ -26,8 +25,8 @@ const CarouselView: React.FC<CarouselViewProps> = ({ newsList }) => {
     link: news.news_url,
     src: news.thumbnail_url,
     title: news.title,
-    height: 691, // 20% smaller than 864
-    width: 1229, // 20% smaller than 1536
+    height: 691,
+    width: 1229,
     active: index === 0
   }))
 
